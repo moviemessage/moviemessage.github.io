@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Promise</title>
+</head>
+
+<body>
+  <script>
+    function loadData() {
+      return new Promise(function(resolve, reject) {
+        setTimeout(() => {
+          var data = new Date();
+          resolve(data);
+        }, 1000);
+      })
+    }
+
+    loadData()
+      .then((data) => {
+        console.log(data)
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+    // loadData((data) => {
+    //   console.log(data);
+    //   loadData((data) => {
+    //     console.log(data);
+    //     loadData((data) => {
+    //       console.log(data);
+    //       loadData((data) => {
+    //         console.log(data);
+    //         loadData((data) => {
+    //           console.log(data);
+    //         });
+    //       });
+    //     });
+    //   });
+    // });
+    // loadData()
+    // .then(function (data) {
+
+    // })
+  </script>
+</body>
+
+</html>

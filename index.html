@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Moviecat</title>
+  <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
+  <link href="app.css" rel="stylesheet">
+</head>
+
+<body ng-app="moviecat">
+  <nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#">Movie-message</a>
+      </div>
+      <div id="navbar" class="navbar-collapse collapse">
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="#">Dashboard</a></li>
+        </ul>
+        <form ng-controller="searchcontroller" ng-submit="search()" class="navbar-form navbar-right">
+          <input ng-model="input" type="text" class="form-control" placeholder="Search...">
+        </form>
+      </div>
+    </div>
+  </nav>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-3 col-md-2 sidebar">
+        <ul class="nav nav-sidebar">
+          <li auto-active="active"><a href="#/in_theaters">正在热播</a></li>
+          <li auto-active="active"><a href="#/coming_soon">即将上映</a></li>
+          <li auto-active="active"><a href="#/top250">TOP250</a></li>
+        </ul>
+      </div>
+      <!-- 主要的内容区域  ng-view:是一个占位符，最终替换为路由执行过后的结果 -->
+      <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" ng-view></div>
+    </div>
+  </div>
+  <script src="bower_components/angular/angular.js"></script>
+  <script src="bower_components/angular-route/angular-route.js"></script>
+  <script src="app.js"></script>
+ <!-- <script src="in_theaters/module.js"></script>
+  <script src="coming_soon/module.js"></script>
+  <script src="top250/module.js"></script>-->
+  <script src="movie-list/module.js"></script>
+  <script src="movie-detail/module.js"></script>
+  <script src="components/http-service.js"></script>
+  <script src="components/auto-active.js"></script>
+</body>
+
+</html>

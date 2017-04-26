@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+</head>
+<!-- / => 首页
+     /module1 => 模块1
+ -->
+
+<body ng-app="rootApp">
+<ul>
+  <li><a href="#/">主页</a></li>
+  <li><a href="#/module1">模块一</a></li>
+  <li><a href="#/module2">模块二</a></li>
+</ul>
+  <!-- ng-view:是一个占位符，最终替换为路由执行过后的结果 -->
+  <div ng-view></div>
+  <script src="bower_components/angular/angular.js"></script>
+  <script src="bower_components/angular-route/angular-route.js"></script>
+<script id="tmpl" type="text/ng-template">
+  <h1>{{hello}}</h1>
+</script>
+  <script>
+    // 1. 引入NG和ngRoute的包
+    // 2. 定义一个模块(注意如果使用路由就必须引入ngRoute模块，其他模块必须依赖这个模块)
+    var rootApp = angular.module('rootApp', ['ngRoute']);
+    // 3. 定义路由表（路由规则）
+    rootApp.config(['$routeProvider', function($routeProvider) {
+      // $routeProvider 就相当于保安部
+      $routeProvider
+              .when('/', {
+                // 当请求的“URL” /， 找当前定义控制器和视图
+                controller: 'DefaultController',
+                // template: '<h1>{{hello}}</h1>'
+                templateUrl: 'tmpl'
+              })
+              .when('/module1/1', {
+                controller: 'Module1Controller',
+                // template: '<h1>{{hello}}</h1>'
+                templateUrl: 'tmpl'
+              })
+              //当有20页即很多数据的时候，就需要用占位符:id/:name/:age，用1/zhangsan/18等去匹配
+              .when('/module2/:id/:name/:age', {
+                controller: 'Module2Controller',
+                // template: '<h1>{{hello}}</h1>'
+                templateUrl: 'tmpl'
+              })
+              .otherwise({
+                // controller: 'Module2Controller',
+                // // template: '<h1>{{hello}}</h1>'
+                // templateUrl: 'tmpl'
+                redirectTo: '/'
+              });
+    }]);
+    rootApp.controller('DefaultController',['$scope',function($scope){
+      $scope.hello="恭喜你被录取了";
+    }])
+    rootApp.controller('Module1Controller',['$scope',function($scope){
+      $scope.hello="恭喜你被录取了1";
+    }])
+    rootApp.controller('Module2Controller',['$scope','$routeParams',function($scope,$routeParams){
+      console.log($routeParams);
+      $scope.hello="恭喜你被录取了2";
+    }])
+  </script>
+</body>
+
+</html>
